@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "816128504538",
+    "project_id": "finance-tracker-8f357",
+    "storage_bucket": "finance-tracker-8f357.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:816128504538:android:91c5c7f69c39ec53fe6be3",
+        "android_client_info": {
+          "package_name": "com.example.finance_loan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "816128504538-eec3qbtq38qvu2v240lg75amd04f8958.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLz2hk1LiAQJIS2okxtuk7ZsF_G48AAMo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "816128504538-eec3qbtq38qvu2v240lg75amd04f8958.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "816128504538-0v59n7f748cifoureiat6t5v8nc8b746.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.financeLoan"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
