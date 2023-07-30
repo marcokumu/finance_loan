@@ -34,3 +34,48 @@ import 'package:firebase_auth/firebase_auth.dart';
         'onTap': () => _signOut(context), // Call _signOut when Logout is tapped
       },
     ];
+
+    return Drawer(
+      child: ListView.builder(
+        itemCount: menuItems.length + 1, // Add one for the header
+        itemBuilder: (context, index) {
+          if (index == 0) {
+            // Return the header widget for the first item
+            return const DrawerHeader(
+              decoration: BoxDecoration(
+                color: Color.fromARGB(255, 168, 186, 201),
+              ),
+              child: Text(
+                'Loan Tracker',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                ),
+              ),
+            );
+          } else {
+            // Return a ListTile widget for the other items
+            return _buildMenuItem(
+              icon: menuItems[index - 1]['icon'],
+              title: menuItems[index - 1]['title'],
+              onTap: menuItems[index - 1]['onTap'],
+            );
+          }
+        },
+      ),
+    );
+  }
+
+  // A method that returns a ListTile widget with the given parameters
+  Widget _buildMenuItem({
+    required IconData icon,
+    required String title,
+    required VoidCallback onTap,
+  }) {
+    return ListTile(
+      leading: Icon(icon),
+      title: Text(title),
+      onTap: onTap,
+    );
+  }
+}
