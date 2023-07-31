@@ -5,9 +5,12 @@ import 'package:finance_loan/frontend/widgets/floating-action-button/floating_ac
 import 'package:finance_loan/frontend/widgets/home-widgets/loan_data.dart';
 
 import 'package:finance_loan/frontend/widgets/home-widgets/tab_widget.dart'; // Import the TabWidget
+import 'package:finance_loan/frontend/widgets/home-widgets/tab_widget.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
+  const Home({Key? key, required this.userId}) : super(key: key);
+  final String userId; // The current user's ID
 
   @override
   _HomeState createState() => _HomeState();
@@ -54,15 +57,19 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
   void getCurrentUser(){
     if(!_auth.currentUser!.isAnonymous){
+  void getCurrentUser() {
+    if (!_auth.currentUser!.isAnonymous) {
       final User user = _auth.currentUser!;
       userId = user.uid;
     }
   }
  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[200],
+      backgroundColor: const Color.fromARGB(255, 0, 0, 0),
       body: DefaultTabController(
         length: 2,
         child: Column(
@@ -84,6 +91,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                 children: [
                   LoanCardsList(userId: userId, loanType: 'Lend'),
                   LoanCardsList(userId: userId, loanType: 'Borrow'),
+                  _getTabContent('Lend', userId),
+                  _getTabContent('Borrow', userId),
                 ],
               ),
             ),
@@ -117,4 +126,18 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     );
   }
 }
+
+class EmptyLoanMessage extends StatelessWidget {
+  const EmptyLoanMessage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: Text(
+        'No loan details found.\nAdd a new loan by tapping the + button below.',
+        textAlign: TextAlign.center,
+        style: TextStyle(color: Colors.white),
+      ),
+    );
+  }
 }
