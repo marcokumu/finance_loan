@@ -111,6 +111,65 @@ class _LoginPageState extends State<LoginPage> {
         throw Exception('Please enter a password with at least 6 characters.');
       }
 
+      // Use Firebase Auth's createUserWithEmailAndPassword method to create a new user with email and password
+      UserCredential userCredential = await _auth
+          .createUserWithEmailAndPassword(email: email, password: password);
+
+      // Check if the user is not null
+      User? user = userCredential.user;
+      if (user != null) {
+        // Send a verification email to the user
+        await user.sendEmailVerification();
+
+        // Display a success message to the user
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(
+              'A verification email has been sent to $email. Please verify your email address and sign in.'),
+          backgroundColor: Colors.green,
+        ));
+
+        // Clear the text controllers
+        _emailController.clear();
+        _passwordController.clear();
+
+        // Set the signing up state to false
+        setState(() {
+          _isSigningUp = false;
+        });
+      } else {
+        throw Exception('Something went wrong. Please try again later.');
+      }
+    } on FirebaseAuthException catch (e) {
+      // Handle any Firebase Auth errors and display appropriate messages to the user
+      if (e.code == 'email-already-in-use') {
+        print('The account already exists for that email.');
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('The account already exists for that email.'),
+          backgroundColor: Colors.red,
+        ));
+      } else {
+        print(e.message);
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(e.message!),
+          backgroundColor: Colors.red,
+        ));
+      }
+    } catch (e) {
+      // Handle any other errors and display appropriate messages to the user
+      print(e.toString());
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(e.toString()),
+        backgroundColor: Colors.red,
+      ));
+    } finally {
+      // Set the loading state to false
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
+
+  // A function to handle the Google sign-in process
   Future<void> _signInWithGoogle() async {
     try {
       // Set the loading state to true
