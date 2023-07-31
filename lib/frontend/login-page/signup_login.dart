@@ -91,6 +91,58 @@ class _LoginPageState extends State<LoginPage> {
         throw Exception('Please enter a password with at least 6 characters.');
       }
 
+      // Use Firebase Auth's signInWithEmailAndPassword method to sign in the user with email and password
+      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
+
+      // Check if the user is not null and is verified
+      User? user = userCredential.user;
+      if (user != null && user.emailVerified) {
+        // Navigate to the main app page or dashboard using Navigator.pushReplacement
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => BottomNavigationBarExample()));
+      } else {
+        throw Exception(
+            'Please verify your email address or sign up for a new account.');
+      }
+    } on FirebaseAuthException catch (e) {
+      // Handle any Firebase Auth errors and display appropriate messages to the user
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('No user found for that email.'),
+          backgroundColor: Colors.red,
+        ));
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user.');
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Wrong password provided for that user.'),
+          backgroundColor: Colors.red,
+        ));
+      } else {
+        print(e.message);
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(e.message!),
+          backgroundColor: Colors.red,
+        ));
+      }
+    } catch (e) {
+      // Handle any other errors and display appropriate messages to the user
+      print(e.toString());
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(e.toString()),
+        backgroundColor: Colors.red,
+      ));
+    } finally {
+      // Set the loading state to false
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
+
   // A function to handle the email/password signup process
   Future<void> _signUpWithEmailAndPassword() async {
     try {
