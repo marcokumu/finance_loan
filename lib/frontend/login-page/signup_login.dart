@@ -45,3 +45,49 @@ class GoogleSignInButton extends StatelessWidget {
     );
   }
 }
+
+// Define a LoginPage widget that handles the login and signup UI and logic
+class LoginPage extends StatefulWidget {
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  // Create an instance of FirebaseAuth
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  // Create an instance of GoogleSignIn
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
+
+  // Create a TextEditingController for email input
+  final TextEditingController _emailController = TextEditingController();
+
+  // Create a TextEditingController for password input
+  final TextEditingController _passwordController = TextEditingController();
+
+  // A boolean to indicate if the user is signing up or logging in
+  bool _isSigningUp = false;
+
+  // A boolean to indicate if the user is loading or not
+  bool _isLoading = false;
+
+  // A function to handle the email/password login process
+  Future<void> _signInWithEmailAndPassword() async {
+    try {
+      // Set the loading state to true
+      setState(() {
+        _isLoading = true;
+      });
+
+      // Get the email and password from the text controllers
+      String email = _emailController.text;
+      String password = _passwordController.text;
+
+      // Validate the email and password inputs
+      if (email.isEmpty || !email.contains('@')) {
+        throw Exception('Please enter a valid email address.');
+      }
+      if (password.isEmpty || password.length < 6) {
+        throw Exception('Please enter a password with at least 6 characters.');
+      }
+
