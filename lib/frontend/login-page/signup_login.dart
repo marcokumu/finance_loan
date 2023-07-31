@@ -275,3 +275,88 @@ class _LoginPageState extends State<LoginPage> {
       });
     }
   }
+
+  @override
+  Widget build(BuildContext context) {
+    // Return a Scaffold widget that contains the login and signup UI elements
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Login Page'),
+      ),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextField(
+                controller: _emailController,
+                decoration: InputDecoration(
+                  hintText: 'Email',
+                  border: OutlineInputBorder(),
+                ),
+                keyboardType: TextInputType.emailAddress,
+              ),
+              SizedBox(height: 16.0),
+              TextField(
+                controller: _passwordController,
+                decoration: InputDecoration(
+                  hintText: 'Password',
+                  border: OutlineInputBorder(),
+                ),
+                obscureText: true,
+              ),
+              SizedBox(height: 16.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  // A button to toggle between login and signup modes
+                  TextButton(
+                    style: TextButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _isSigningUp = !_isSigningUp;
+                      });
+                    },
+                    child: Text(
+                      _isSigningUp
+                          ? 'Already have an account? Login'
+                          : 'Don\'t have an account? Sign up',
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  // A button to trigger the email/password login or signup process
+                  TextButton(
+                    style: TextButton.styleFrom(
+                      backgroundColor: Colors.green,
+                    ),
+                    onPressed: _isSigningUp
+                        ? _signUpWithEmailAndPassword
+                        : _signInWithEmailAndPassword,
+                    child: Text(
+                      _isSigningUp ? 'Sign up' : 'Login',
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 16.0),
+              // A custom GoogleSignInButton to trigger the Google sign-in process
+              GoogleSignInButton(
+                onPressed: _signInWithGoogle,
+              ),
+              // A widget to display a loading indicator if the user is loading
+              if (_isLoading) CircularProgressIndicator(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
