@@ -91,3 +91,23 @@ class _LoginPageState extends State<LoginPage> {
         throw Exception('Please enter a password with at least 6 characters.');
       }
 
+  // A function to handle the email/password signup process
+  Future<void> _signUpWithEmailAndPassword() async {
+    try {
+      // Set the loading state to true
+      setState(() {
+        _isLoading = true;
+      });
+
+      // Get the email and password from the text controllers
+      String email = _emailController.text;
+      String password = _passwordController.text;
+
+      // Validate the email and password inputs
+      if (email.isEmpty || !email.contains('@')) {
+        throw Exception('Please enter a valid email address.');
+      }
+      if (password.isEmpty || password.length < 6) {
+        throw Exception('Please enter a password with at least 6 characters.');
+      }
+
