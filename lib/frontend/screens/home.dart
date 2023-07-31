@@ -93,4 +93,28 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       ),
     );
   }
+
+  Widget _getTabContent(String loanType, String userId) {
+    return StreamBuilder<QuerySnapshot>(
+      stream: FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .collection('loans')
+          .where('loanType', isEqualTo: loanType)
+          .snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        }
+
+        final loanDocs = snapshot.data?.docs ?? [];
+        if (loanDocs.isEmpty) {
+          return EmptyLoanMessage(); // Show the message widget when loanDocs is empty
+        }
+
+        return LoanCardsList(userId: userId, loanType: loanType);
+      },
+    );
+  }
+}
 }
