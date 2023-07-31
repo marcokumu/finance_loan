@@ -111,3 +111,56 @@ class _LoginPageState extends State<LoginPage> {
         throw Exception('Please enter a password with at least 6 characters.');
       }
 
+  Future<void> _signInWithGoogle() async {
+    try {
+      // Set the loading state to true
+      setState(() {
+        _isLoading = true;
+      });
+
+      // Use GoogleSignIn's signIn method to sign in the user with Google
+      GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+
+      // Check if the Google user is not null
+      if (googleUser != null) {
+        // Get the Google authentication object from the Google user
+        GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+
+        // Create a credential object from the Google authentication object
+        AuthCredential credential = GoogleAuthProvider.credential(
+          accessToken: googleAuth.accessToken,
+          idToken: googleAuth.idToken,
+        );
+
+        // Use Firebase Auth's signInWithCredential method to sign in the user with Google credential
+        UserCredential userCredential =
+            await _auth.signInWithCredential(credential);
+
+        // Check if the user is not null
+        User? user = userCredential.user;
+        if (user != null) {
+          // Navigate to the main app page or dashboard using Navigator.pushReplacement
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => BottomNavigationBarExample()));
+        } else {
+          throw Exception('Something went wrong. Please try again later.');
+        }
+      } else {
+        throw Exception('Please select a Google account to sign in.');
+      }
+    } catch (e) {
+      // Handle any errors and display appropriate messages to the user
+      print(e.toString());
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(e.toString()),
+        backgroundColor: Colors.red,
+      ));
+    } finally {
+      // Set the loading state to false
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
