@@ -1,4 +1,6 @@
 import 'package:finance_loan/frontend/login-page/signup_login.dart';
+import 'package:finance_loan/frontend/screens/get_started.dart';
+import 'package:finance_loan/frontend/screens/privacy_policy.dart';
 import 'package:finance_loan/frontend/widgets/home-widgets/transaction_expansion_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -33,9 +35,11 @@ class NavigationDrawerExample extends StatelessWidget {
         'onTap': () {
           // Handle navigation to Home screen here
           Navigator.push(
+
             context,
             MaterialPageRoute(
               builder: (context) => TransactionChart(),
+              
             ),
           );
           // Navigator.pop(context); // Close the drawer
@@ -46,7 +50,12 @@ class NavigationDrawerExample extends StatelessWidget {
         'title': 'Transactions',
         'onTap': () {
           // Handle navigation to Transactions screen here
-          Navigator.pop(context); // Close the drawer
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => GetStartedPage(),
+            ),
+          );
         },
       },
       // Add more menu items here
