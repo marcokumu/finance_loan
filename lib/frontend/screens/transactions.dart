@@ -51,7 +51,8 @@ class _TransactionsState extends State<Transactions> {
 
     for (var loanDoc in loansSnapshot.docs) {
       final loanData = loanDoc.data();
-      final loanDate = loanData['loanDate'] as Timestamp;
+      final loanDate = loanData['createdAt']
+          as Timestamp; // Use createdAt instead of loanDate
       final lend = loanData['loanType'] == 'Lend'
           ? loanData['loanAmount'] as double
           : 0.0;
@@ -74,30 +75,31 @@ class _TransactionsState extends State<Transactions> {
     return data;
   }
 
-  @override
-  Widget build(BuildContext context) {
-    if (userId.isEmpty) {
-      // Show loading or error state while fetching the user ID
-      return const Center(child: CircularProgressIndicator());
-    }
+ @override
+Widget build(BuildContext context) {
+  if (userId.isEmpty) {
+    // Show loading or error state while fetching the user ID
+    return const Center(child: CircularProgressIndicator());
+  }
 
-    return FutureBuilder<List<TransactionData>>(
-      future: _getDataFromFirebase(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (snapshot.hasError) {
-          return Center(child: Text('Error: ${snapshot.error}'));
-        } else {
-          // Calculate total amount borrowed and total amount lent
-          double totalBorrow = 0;
-          double totalLend = 0;
-          for (var data in snapshot.data!) {
-            totalBorrow += data.borrow;
-            totalLend += data.lend;
-          }
+  return FutureBuilder<List<TransactionData>>(
+    future: _getDataFromFirebase(),
+    builder: (context, snapshot) {
+      if (snapshot.connectionState == ConnectionState.waiting) {
+        return const Center(child: CircularProgressIndicator());
+      } else if (snapshot.hasError) {
+        return Center(child: Text('Error: ${snapshot.error}'));
+      } else {
+        // Calculate total amount borrowed and total amount lent
+        double totalBorrow = 0;
+        double totalLend = 0;
+        for (var data in snapshot.data!) {
+          totalBorrow += data.borrow;
+          totalLend += data.lend;
+        }
 
-          return Center(
+        return SingleChildScrollView(
+          child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -110,21 +112,18 @@ class _TransactionsState extends State<Transactions> {
                   padding: const EdgeInsets.all(12),
                   child: Card(child: BarGraph(data: snapshot.data ?? [])),
                 ),
-                // const SizedBox(height: 12),
-                Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.all(12),
-                    child: Card(
-                      child: RadialBarChart(
-                          totalBorrow: totalBorrow, totalLend: totalLend),
-                    ),
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  child: Card(
+                    child:
+                        RadialBarChart(totalBorrow: totalBorrow, totalLend: totalLend),
                   ),
-                ), // Display the RadialBarChart
+                ),
               ],
             ),
-          );
-        }
-      },
-    );
-  }
-}
+          ),
+        );
+      }
+    },
+  );
+}}
