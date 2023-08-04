@@ -1,8 +1,11 @@
-import 'package:finance_loan/frontend/login-page/signup_login.dart';
+import 'package:finance_loan/frontend/nav/bottom_navigation_bar.dart';
+import 'package:finance_loan/frontend/theme/app_theme.dart';
+import 'package:finance_loan/frontend/theme/theme_model.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-
+import 'package:provider/provider.dart'; // Import the provider package
 import 'firebase_options.dart';
+// Import the theme_switch.dart file
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -10,39 +13,27 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  // bool isLoggedIn = await checkLoggedIn();
-
   runApp(
-    MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(useMaterial3: true),
-      home:  LoginPage(),
+    ChangeNotifierProvider(
+      // Wrap with ChangeNotifierProvider to provide the ThemeModel
+      create: (_) => ThemeModel(),
+      child: MyApp(),
     ),
   );
 }
 
-// Future<bool> checkLoggedIn() async {
-//   SharedPreferences prefs = await SharedPreferences.getInstance();
-//   bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: lightTheme,
+      darkTheme: darkTheme,
+      themeMode: Provider.of<ThemeModel>(context)
+          .themeMode, // Access the themeMode from the provider
+      home: BottomNavigationBarExample(),
+    );
+  }
+}
 
-//   // Check if the user is already logged in
-//   if (isLoggedIn) {
-//     // Implement the logic to check if the user's session is still valid
-//     // For example, you can use the FirebaseAuth instance to check the current user
-//     // If the current user is not null, the user is logged in, and return true
-//     // Otherwise, return false
-
-//     final FirebaseAuth _auth = FirebaseAuth.instance;
-//     User? currentUser = _auth.currentUser;
-//     if (currentUser != null) {
-//       return true;
-//     } else {
-//       // If the user's session is not valid, clear the isLoggedIn flag
-//       // to force the user to log in again
-//       prefs.setBool('isLoggedIn', false);
-//       return false;
-//     }
-//   } else {
-//     return false;
-//   }
-// }
+// ... Rest of the code
