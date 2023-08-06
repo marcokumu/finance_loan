@@ -60,63 +60,30 @@ class BarGraph extends StatelessWidget {
             itemCount: data.length,
             itemBuilder: (context, index) {
               final transaction = data[index];
-              return Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                    child: Row(
-                      mainAxisAlignment:
-                          MainAxisAlignment.spaceBetween, // Adjust alignment
-                      children: [
-                        // First column: Month
-                        Text(
-                          transaction.month,
-                          style:
-                              const TextStyle(fontSize: 12), // Adjust font size
-                        ),
-                        // Second column: Borrowed and Lent
-                        const Expanded(
-                          child: Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Borrowed:',
-                                  style: TextStyle(
-                                      fontSize: 12), // Adjust font size
-                                ),
-                                Text(
-                                  'Lent:',
-                                  style: TextStyle(
-                                      fontSize: 12), // Adjust font size
-                                ),
-                              ],
+              return Flexible(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Row(
+                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          // First column: Month
+                          Text(transaction.month),
+                          // Second column: Borrowed and Lent
+                          Padding(
+                            padding: const EdgeInsets.only(left: 166.0),
+                            child: Text(
+                              'Borrowed: KES ${transaction.borrow}\nLent: KES ${transaction.lend}',
+                              textAlign: TextAlign.end,
                             ),
                           ),
-                        ),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'KES ${transaction.borrow}',
-                                style: const TextStyle(
-                                    fontSize: 12), // Adjust font size
-                              ),
-                              Text(
-                                'KES ${transaction.lend}',
-                                style: const TextStyle(
-                                    fontSize: 12), // Adjust font size
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                  const Divider(),
-                ],
+                    const Divider(),
+                  ],
+                ),
               );
             },
           ),
