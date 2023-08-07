@@ -1,7 +1,8 @@
+import 'package:finance_loan/frontend/widgets/floating-action-button/floating_action_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:finance_loan/frontend/widgets/floating-action-button/floating_action_button.dart';
 import 'package:finance_loan/frontend/widgets/home-widgets/loan_data.dart';
 import 'package:finance_loan/frontend/widgets/home-widgets/tab_widget.dart';
 
@@ -13,9 +14,15 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
+class _HomeState extends State<Home>
+    with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin<Home> {
   late TabController _tabController;
   final List<String> _tabTitles = ['Owed To Me', 'Borrowed'];
+
+  @override
+  bool get wantKeepAlive => true;
+
+  final _pageKey = GlobalKey<ScaffoldState>(); // Declare a GlobalKey
 
   @override
   void initState() {
@@ -49,7 +56,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+      key: _pageKey,
+      // backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+      floatingActionButton: const MyFloatingActionButton(),
       body: DefaultTabController(
         length: 2,
         child: Column(
@@ -67,7 +76,6 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                 ],
               ),
             ),
-            const MyFloatingActionButton(),
           ],
         ),
       ),
@@ -89,7 +97,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
         final loanDocs = snapshot.data?.docs ?? [];
         if (loanDocs.isEmpty) {
-          return EmptyLoanMessage(); // Show the message widget when loanDocs is empty
+          return const EmptyLoanMessage(); // Show the message widget when loanDocs is empty
         }
 
         return LoanCardsList(userId: userId, loanType: loanType);
@@ -103,11 +111,24 @@ class EmptyLoanMessage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text(
-        'No loan details found.\nAdd a new loan by tapping the + button below.',
-        textAlign: TextAlign.center,
-        style: TextStyle(color: Colors.white),
+    return Center(
+      child: Column(
+        children: [
+          Image.asset(
+            'assets/images/sammy.png',
+            height: 120.0,
+          ),
+          const Center(
+            child: Text(
+              'No loan details found.\nAdd a new loan by tapping the + button below.',
+              textAlign: TextAlign.center,
+              // style: GoogleFonts.getFont(
+              //   'Poppins',
+              //   // color: Colors.white,
+              // ),
+            ),
+          ),
+        ],
       ),
     );
   }
