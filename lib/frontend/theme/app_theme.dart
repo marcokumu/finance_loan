@@ -2,13 +2,39 @@ import 'package:flutter/material.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-final ThemeData lightTheme = FlexColorScheme.light(
-  scheme: FlexScheme.greenM3,
+final InputDecorationTheme customInputDecorationTheme = InputDecorationTheme(
+  filled: true,
+  fillColor: Colors.transparent, // Update as needed
+  contentPadding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+  errorStyle: const TextStyle(fontSize: 9, fontWeight: FontWeight.w700),
+  prefixStyle: const TextStyle(color: Colors.green),
+  enabledBorder: OutlineInputBorder(
+    borderRadius: BorderRadius.circular(8),
+    borderSide: const BorderSide(color: Colors.grey),
+  ),
+  focusedBorder: OutlineInputBorder(
+    borderRadius: BorderRadius.circular(8),
+    borderSide: const BorderSide(color: Colors.green),
+  ),
+  focusedErrorBorder: OutlineInputBorder(
+    borderRadius: BorderRadius.circular(8),
+    borderSide: const BorderSide(color: Colors.red),
+  ),
+  errorBorder: OutlineInputBorder(
+    borderRadius: BorderRadius.circular(8),
+    borderSide: const BorderSide(color: Colors.red),
+  ),
+  floatingLabelStyle: const TextStyle(color: Colors.green),
+  labelStyle: const TextStyle(fontSize: 11, color: Colors.black),
+);
 
-  surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
-  blendLevel: 7,
-  appBarOpacity: 0.91,
-  appBarElevation: 9.0,
+final ThemeData lightTheme = FlexColorScheme.light(
+  scheme: FlexScheme.materialHc,
+
+  surfaceMode: FlexSurfaceMode.highScaffoldLowSurfacesVariantDialog,
+  blendLevel: 3,
+  appBarOpacity: 0.1,
+  appBarElevation: 1.0,
   subThemesData: const FlexSubThemesData(
     blendOnLevel: 10,
     blendOnColors: false,
@@ -56,12 +82,15 @@ final ThemeData lightTheme = FlexColorScheme.light(
   swapLegacyOnMaterial3: true,
   // To use the Playground font, add GoogleFonts package and uncomment
   fontFamily: GoogleFonts.notoSans().fontFamily,
-).toTheme;
+).toTheme.copyWith(
+      // Apply custom decoration theme
+      inputDecorationTheme: customInputDecorationTheme,
+    );
 
 final ThemeData darkTheme = FlexColorScheme.dark(
-  scheme: FlexScheme.greenM3,
-  surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
-  blendLevel: 13,
+  scheme: FlexScheme.materialHc,
+  surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffoldVariantDialog,
+  blendLevel: 3,
   subThemesData: const FlexSubThemesData(
     blendOnLevel: 20,
     useTextTheme: true,
@@ -107,4 +136,7 @@ final ThemeData darkTheme = FlexColorScheme.dark(
   swapLegacyOnMaterial3: true,
   // To use the Playground font, add GoogleFonts package and uncomment
   fontFamily: GoogleFonts.notoSans().fontFamily,
-).toTheme;
+).toTheme.copyWith(
+      // Apply custom decoration theme
+      inputDecorationTheme: customInputDecorationTheme,
+    );
