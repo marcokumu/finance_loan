@@ -12,51 +12,51 @@ const List<PageOption> destinations = <PageOption>[
   PageOption(
       'Home',
       Icon(
-        Icons.home_outlined,
-        color: Colors.black,
+        Icons.home,
+        // color: Color.fromARGB(255, 90, 87, 87),
       ),
       Icon(
         Icons.home,
-        color: Colors.black,
+        // color: Color.fromRGBO(191, 55, 33, 1),
       )),
   PageOption(
       'Transactions',
       Icon(
-        Icons.wallet_outlined,
-        color: Colors.black,
+        Icons.wallet,
+        // color: Color.fromARGB(255, 90, 87, 87),
       ),
       Icon(
-        Icons.wallet_outlined,
-        color: Colors.black,
+        Icons.wallet,
+        // color: Color.fromRGBO(191, 55, 33, 1),
       )),
   PageOption(
       'Inventory',
       Icon(
-        Icons.text_snippet_outlined,
-        color: Colors.black,
+        Icons.text_snippet,
+        // color: Color.fromARGB(255, 90, 87, 87),
       ),
       Icon(
         Icons.text_snippet,
-        color: Colors.black,
+        // color: Color.fromRGBO(191, 55, 33, 1),
       )),
   PageOption(
       'New Loan',
       Icon(
-        Icons.local_atm_outlined,
-        color: Colors.black,
+        Icons.local_atm,
+        // color: Color.fromARGB(255, 90, 87, 87),
       ),
       Icon(
         Icons.local_atm,
-        color: Colors.black,
+        // color: Color.fromRGBO(191, 55, 33, 1),
       )),
   PageOption(
       'Notifications',
       Icon(
-        Icons.notifications_outlined,
-        color: Colors.black,
+        Icons.notifications,
+        // color: Color.fromARGB(255, 90, 87, 87),
       ),
       Icon(
         Icons.notifications,
-        color: Colors.black,
+        // color: Color.fromRGBO(191, 55, 33, 1),
       )),
 ];
