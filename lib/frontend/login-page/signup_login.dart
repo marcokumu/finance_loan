@@ -2,57 +2,17 @@ import 'package:finance_loan/frontend/nav/bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-
-// Define a custom GoogleSignInButton widget
-class GoogleSignInButton extends StatelessWidget {
-  // A function to handle the Google sign-in process
-  final VoidCallback onPressed;
-
-  // A constructor that takes the onPressed function as a parameter
-  GoogleSignInButton({required this.onPressed});
-
-  @override
-  Widget build(BuildContext context) {
-    // Return a TextButton with Google logo and text
-    return TextButton(
-      style: TextButton.styleFrom(
-        backgroundColor: Colors.blue,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8.0),
-        ),
-      ),
-      onPressed: onPressed,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Image.asset(
-              'assets/images/google_logo.png',
-              height: 44.0,
-            ),
-            SizedBox(width: 8.0),
-            Text(
-              'Sign in with Google',
-              style: TextStyle(
-                color: Colors.black54,
-                fontSize: 16.0,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
+import 'package:finance_loan/frontend/login-page/google_signin.dart';
 
 // Define a LoginPage widget that handles the login and signup UI and logic
 class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
   @override
-  _LoginPageState createState() => _LoginPageState();
+  LoginPageState createState() => LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class LoginPageState extends State<LoginPage> {
   // Create an instance of FirebaseAuth
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -102,7 +62,7 @@ class _LoginPageState extends State<LoginPage> {
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-                builder: (context) => BottomNavigationBarExample()));
+                builder: (context) => const BottomNavigationBarExample()));
       } else {
         throw Exception(
             'Please verify your email address or sign up for a new account.');
@@ -111,29 +71,33 @@ class _LoginPageState extends State<LoginPage> {
       // Handle any Firebase Auth errors and display appropriate messages to the user
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          behavior: SnackBarBehavior.floating,
           content: Text('No user found for that email.'),
-          backgroundColor: Colors.red,
+          // backgroundColor: Colors.red,
         ));
       } else if (e.code == 'wrong-password') {
         print('Wrong password provided for that user.');
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          behavior: SnackBarBehavior.floating,
           content: Text('Wrong password provided for that user.'),
-          backgroundColor: Colors.red,
+          // backgroundColor: Colors.red,
         ));
       } else {
         print(e.message);
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          behavior: SnackBarBehavior.floating,
           content: Text(e.message!),
-          backgroundColor: Colors.red,
+          // backgroundColor: Colors.red,
         ));
       }
     } catch (e) {
       // Handle any other errors and display appropriate messages to the user
       print(e.toString());
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        behavior: SnackBarBehavior.floating,
         content: Text(e.toString()),
-        backgroundColor: Colors.red,
+        // backgroundColor: Colors.red,
       ));
     } finally {
       // Set the loading state to false
@@ -175,9 +139,10 @@ class _LoginPageState extends State<LoginPage> {
 
         // Display a success message to the user
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          behavior: SnackBarBehavior.floating,
           content: Text(
               'A verification email has been sent to $email. Please verify your email address and sign in.'),
-          backgroundColor: Colors.green,
+          // backgroundColor: Colors.green,
         ));
 
         // Clear the text controllers
@@ -195,23 +160,26 @@ class _LoginPageState extends State<LoginPage> {
       // Handle any Firebase Auth errors and display appropriate messages to the user
       if (e.code == 'email-already-in-use') {
         print('The account already exists for that email.');
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          behavior: SnackBarBehavior.floating,
           content: Text('The account already exists for that email.'),
-          backgroundColor: Colors.red,
+          // backgroundColor: Colors.red,
         ));
       } else {
         print(e.message);
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          behavior: SnackBarBehavior.floating,
           content: Text(e.message!),
-          backgroundColor: Colors.red,
+          // backgroundColor: Colors.red,
         ));
       }
     } catch (e) {
       // Handle any other errors and display appropriate messages to the user
       print(e.toString());
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        behavior: SnackBarBehavior.floating,
         content: Text(e.toString()),
-        backgroundColor: Colors.red,
+        // backgroundColor: Colors.red,
       ));
     } finally {
       // Set the loading state to false
@@ -254,7 +222,7 @@ class _LoginPageState extends State<LoginPage> {
           Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                  builder: (context) => BottomNavigationBarExample()));
+                  builder: (context) => const BottomNavigationBarExample()));
         } else {
           throw Exception('Something went wrong. Please try again later.');
         }
@@ -265,8 +233,9 @@ class _LoginPageState extends State<LoginPage> {
       // Handle any errors and display appropriate messages to the user
       print(e.toString());
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        behavior: SnackBarBehavior.floating,
         content: Text(e.toString()),
-        backgroundColor: Colors.red,
+        // backgroundColor: Colors.red,
       ));
     } finally {
       // Set the loading state to false
@@ -281,7 +250,7 @@ class _LoginPageState extends State<LoginPage> {
     // Return a Scaffold widget that contains the login and signup UI elements
     return Scaffold(
       appBar: AppBar(
-        title: Text('Login Page'),
+        title: const Text('Login Page'),
       ),
       body: Center(
         child: Padding(
@@ -291,30 +260,30 @@ class _LoginPageState extends State<LoginPage> {
             children: [
               TextField(
                 controller: _emailController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Email',
                   border: OutlineInputBorder(),
                 ),
                 keyboardType: TextInputType.emailAddress,
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               TextField(
                 controller: _passwordController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Password',
                   border: OutlineInputBorder(),
                 ),
                 obscureText: true,
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   // A button to toggle between login and signup modes
-                  TextButton(
+                  ElevatedButton(
                     style: TextButton.styleFrom(
-                      backgroundColor: Colors.blue,
-                    ),
+                        // backgroundColor: Colors.blue,
+                        ),
                     onPressed: () {
                       setState(() {
                         _isSigningUp = !_isSigningUp;
@@ -324,35 +293,35 @@ class _LoginPageState extends State<LoginPage> {
                       _isSigningUp
                           ? 'Already have an account? Login'
                           : 'Don\'t have an account? Sign up',
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
+                      style: const TextStyle(
+                          // color: Colors.white,
+                          ),
                     ),
                   ),
                   // A button to trigger the email/password login or signup process
-                  TextButton(
+                  ElevatedButton(
                     style: TextButton.styleFrom(
-                      backgroundColor: Colors.green,
-                    ),
+                        // backgroundColor: Colors.green,
+                        ),
                     onPressed: _isSigningUp
                         ? _signUpWithEmailAndPassword
                         : _signInWithEmailAndPassword,
                     child: Text(
                       _isSigningUp ? 'Sign up' : 'Login',
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
+                      style: const TextStyle(
+                          // color: Colors.white,
+                          ),
                     ),
                   ),
                 ],
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               // A custom GoogleSignInButton to trigger the Google sign-in process
               GoogleSignInButton(
                 onPressed: _signInWithGoogle,
               ),
               // A widget to display a loading indicator if the user is loading
-              if (_isLoading) CircularProgressIndicator(),
+              if (_isLoading) const CircularProgressIndicator(),
             ],
           ),
         ),
