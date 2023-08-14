@@ -8,7 +8,8 @@ class ThemeSwitch extends StatelessWidget {
   final bool isDarkMode; // Add the isDarkMode parameter
   final ValueChanged<bool> onChanged; // Add the onChanged parameter
 
-  const ThemeSwitch({required this.isDarkMode, required this.onChanged});
+  const ThemeSwitch(
+      {super.key, required this.isDarkMode, required this.onChanged});
 
   @override
   Widget build(BuildContext context) {

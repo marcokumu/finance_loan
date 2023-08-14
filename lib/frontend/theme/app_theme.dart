@@ -25,11 +25,11 @@ final InputDecorationTheme customInputDecorationTheme = InputDecorationTheme(
     borderSide: const BorderSide(color: Colors.red),
   ),
   floatingLabelStyle: const TextStyle(color: Colors.green),
-  labelStyle: const TextStyle(fontSize: 11, color: Colors.black),
+  labelStyle: const TextStyle(fontSize: 11),
 );
 
 final ThemeData lightTheme = FlexColorScheme.light(
-  scheme: FlexScheme.materialHc,
+  scheme: FlexScheme.bigStone,
 
   surfaceMode: FlexSurfaceMode.highScaffoldLowSurfacesVariantDialog,
   blendLevel: 3,
@@ -81,14 +81,14 @@ final ThemeData lightTheme = FlexColorScheme.light(
   useMaterial3: true,
   swapLegacyOnMaterial3: true,
   // To use the Playground font, add GoogleFonts package and uncomment
-  fontFamily: GoogleFonts.notoSans().fontFamily,
+  fontFamily: GoogleFonts.roboto().fontFamily,
 ).toTheme.copyWith(
       // Apply custom decoration theme
       inputDecorationTheme: customInputDecorationTheme,
     );
 
 final ThemeData darkTheme = FlexColorScheme.dark(
-  scheme: FlexScheme.materialHc,
+  scheme: FlexScheme.bigStone,
   surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffoldVariantDialog,
   blendLevel: 3,
   subThemesData: const FlexSubThemesData(
@@ -135,7 +135,7 @@ final ThemeData darkTheme = FlexColorScheme.dark(
   useMaterial3: true,
   swapLegacyOnMaterial3: true,
   // To use the Playground font, add GoogleFonts package and uncomment
-  fontFamily: GoogleFonts.notoSans().fontFamily,
+  fontFamily: GoogleFonts.roboto().fontFamily,
 ).toTheme.copyWith(
       // Apply custom decoration theme
       inputDecorationTheme: customInputDecorationTheme,

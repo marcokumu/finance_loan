@@ -57,8 +57,8 @@ class _TabWidgetState extends State<TabWidget>
               fontSize: 16,
             ),
             tabs: [
-              buildTab('Owed To Me'),
               buildTab('Borrowed'),
+              buildTab('Owed To Me'),
             ],
           ),
         ],

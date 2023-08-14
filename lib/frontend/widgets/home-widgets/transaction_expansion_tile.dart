@@ -29,9 +29,9 @@ class TransactionChart extends StatelessWidget {
                 chartLegendSpacing: 34,
                 chartRadius: MediaQuery.of(context).size.width / 2.2,
                 colorList: const [
-                  Color.fromARGB(255, 133, 206, 135),
-                  Color.fromARGB(255, 131, 192, 241),
-                  Color.fromARGB(255, 240, 167, 162),
+                  // Color.fromARGB(255, 133, 206, 135),
+                  // Color.fromARGB(255, 131, 192, 241),
+                  // Color.fromARGB(255, 240, 167, 162),
                 ],
                 initialAngleInDegree: 0,
                 chartType: ChartType.ring,
@@ -43,7 +43,7 @@ class TransactionChart extends StatelessWidget {
                   showLegends: true,
                   legendShape: BoxShape.circle,
                   legendTextStyle: TextStyle(
-                    color: Colors.black,
+                    // color: Colors.black,
                     fontSize: 19,
                     // fontWeight: FontWeight.bold,
                   ),

@@ -17,7 +17,10 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home>
     with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin<Home> {
   late TabController _tabController;
-  final List<String> _tabTitles = ['Owed To Me', 'Borrowed'];
+  final List<String> _tabTitles = [
+    'Borrowed',
+    'Owed To Me',
+  ];
 
   @override
   bool get wantKeepAlive => true;
@@ -55,6 +58,7 @@ class _HomeState extends State<Home>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       key: _pageKey,
       // backgroundColor: const Color.fromARGB(255, 255, 255, 255),
@@ -71,8 +75,8 @@ class _HomeState extends State<Home>
               child: TabBarView(
                 controller: _tabController,
                 children: [
-                  _getTabContent('Lend', userId),
                   _getTabContent('Borrow', userId),
+                  _getTabContent('Lend', userId),
                 ],
               ),
             ),
@@ -112,23 +116,26 @@ class EmptyLoanMessage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Column(
-        children: [
-          Image.asset(
-            'assets/images/sammy.png',
-            height: 120.0,
-          ),
-          const Center(
-            child: Text(
-              'No loan details found.\nAdd a new loan by tapping the + button below.',
-              textAlign: TextAlign.center,
-              // style: GoogleFonts.getFont(
-              //   'Poppins',
-              //   // color: Colors.white,
-              // ),
+      child: Container(
+        margin: const EdgeInsets.fromLTRB(0, 200, 0, 0),
+        child: Column(
+          children: [
+            Image.asset(
+              'assets/images/sammy.png',
+              height: 120.0,
             ),
-          ),
-        ],
+            const Center(
+              child: Text(
+                'Nothing to see here.\nAdd a new loan by tapping the + button below.',
+                textAlign: TextAlign.center,
+                // style: GoogleFonts.getFont(
+                //   'Poppins',
+                //   // color: Colors.white,
+                // ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

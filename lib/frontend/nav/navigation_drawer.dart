@@ -1,7 +1,6 @@
 import 'package:finance_loan/frontend/login-page/signup_login.dart';
-import 'package:finance_loan/frontend/screens/get_started.dart';
-import 'package:finance_loan/frontend/screens/privacy_policy.dart';
-import 'package:finance_loan/frontend/widgets/home-widgets/transaction_expansion_tile.dart';
+import 'package:finance_loan/frontend/screens/new_home.dart';
+import 'package:finance_loan/frontend/screens/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -15,12 +14,12 @@ class NavigationDrawerExample extends StatelessWidget {
       await FirebaseAuth.instance.signOut();
       // Navigate back to the login page
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => LoginPage()));
+          context, MaterialPageRoute(builder: (context) => const LoginPage()));
     } catch (e) {
       print("Error signing out: $e");
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text('An error occurred while signing out.'),
-        backgroundColor: Colors.red,
+        // backgroundColor: Colors.red,
       ));
     }
   }
@@ -35,11 +34,9 @@ class NavigationDrawerExample extends StatelessWidget {
         'onTap': () {
           // Handle navigation to Home screen here
           Navigator.push(
-
             context,
             MaterialPageRoute(
-              builder: (context) => TransactionChart(),
-              
+              builder: (context) => const SettingsPage(),
             ),
           );
           // Navigator.pop(context); // Close the drawer
@@ -53,7 +50,7 @@ class NavigationDrawerExample extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => GetStartedPage(),
+              builder: (context) => const NewHomePage(),
             ),
           );
         },
@@ -67,6 +64,7 @@ class NavigationDrawerExample extends StatelessWidget {
     ];
 
     return Drawer(
+      // backgroundColor: const Color.fromRGBO(249, 239, 235, 1),
       child: ListView.builder(
         itemCount: menuItems.length + 1, // Add one for the header
         itemBuilder: (context, index) {
@@ -74,12 +72,12 @@ class NavigationDrawerExample extends StatelessWidget {
             // Return the header widget for the first item
             return const DrawerHeader(
               decoration: BoxDecoration(
-                color: Color.fromARGB(255, 168, 186, 201),
-              ),
+                  // color: Color.fromRGBO(249, 239, 235, 1),
+                  ),
               child: Text(
                 'Loan Tracker',
                 style: TextStyle(
-                  color: Colors.white,
+                  // color: Color.fromARGB(255, 26, 25, 25),
                   fontSize: 24,
                 ),
               ),
@@ -107,6 +105,7 @@ class NavigationDrawerExample extends StatelessWidget {
       leading: Icon(icon),
       title: Text(title),
       onTap: onTap,
+      // focusColor: const Color.fromRGBO(249, 239, 235, 1),
     );
   }
 }

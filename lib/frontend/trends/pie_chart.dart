@@ -16,7 +16,8 @@ class RadialBarChart extends StatelessWidget {
       child: SfCircularChart(
         legend: Legend(
           isVisible: true,
-          overflowMode: LegendItemOverflowMode.wrap,
+          // overflowMode: LegendItemOverflowMode.wrap,
+          position: LegendPosition.bottom,
         ),
         series: <RadialBarSeries<Data, String>>[
           RadialBarSeries<Data, String>(
@@ -34,11 +35,12 @@ class RadialBarChart extends StatelessWidget {
                 fontSize: 16,
               ),
             ),
-            cornerStyle: CornerStyle.endCurve,
+            cornerStyle: CornerStyle.bothCurve,
           ),
         ],
         enableMultiSelection: true, // Enable selection
         selectionGesture: ActivationMode.singleTap, // Set the selection gesture
+        
       ),
     );
   }
