@@ -62,3 +62,19 @@ class _EditLoanState extends State<EditLoan> {
 
   // Declare the image picker
   final ImagePicker _picker = ImagePicker();
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize the controllers with existing data
+    _fullNameController.text = widget.fullName ?? '';
+    _phoneNumberController.text = widget.phoneNumber ?? '';
+    _emailController.text = widget.email ?? '';
+
+    _descriptionController.text = widget.description ?? '';
+    _loanAmountController.text = widget.loanAmount?.toString() ?? '';
+    _loanType = widget.loanType ?? 'Lend';
+    _loanDate = widget.loanDate;
+    _dueDate = widget.dueDate;
+    _image = widget.image;
+  }
