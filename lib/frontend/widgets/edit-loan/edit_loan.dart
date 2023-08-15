@@ -138,6 +138,18 @@ class _EditLoanState extends State<EditLoan> {
     );
   }
 
+  // Define a method to pick an image from the gallery
+  Future<void> _pickImage() async {
+    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      if (pickedFile != null) {
+        _image = pickedFile;
+      } else {
+        print('No image selected.');
+      }
+    });
+  }
+
   // Define a method to save the user input
   void _saveInput() {
     if (_formKey.currentState!.validate()) {
