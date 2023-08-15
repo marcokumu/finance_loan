@@ -78,3 +78,34 @@ class _EditLoanState extends State<EditLoan> {
     _dueDate = widget.dueDate;
     _image = widget.image;
   }
+
+  Future<void> updateLoanData(
+      String documentId, Map<String, dynamic> data) async {
+    try {
+      // Get a reference to the user's document in the 'users' collection
+      final userDocRef =
+          FirebaseFirestore.instance.collection('users').doc(widget.userId);
+
+      // Get a reference to the specific loan document in the 'loans' subcollection
+      final loanDocRef = userDocRef.collection('loans').doc(documentId);
+
+      // Update the data in Firestore
+      await loanDocRef.update(
+        data,
+      );
+
+      EasyLoading.showSuccess('Data updated successfully!');
+
+      // Print a message to the console (optional)
+      print('Data updated successfully!');
+    } catch (e) {
+      QuickAlert.show(
+        context: context,
+        type: QuickAlertType.error,
+        text: 'Error updating data. Please try again.',
+      );
+
+      // Print the error message to the console (optional)
+      print('Error updating data: $e');
+    }
+  }
