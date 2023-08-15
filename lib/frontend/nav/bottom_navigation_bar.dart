@@ -1,11 +1,12 @@
+import 'package:finance_loan/frontend/screens/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:finance_loan/frontend/nav-icons/page_option.dart';
 import 'package:finance_loan/frontend/nav/navigation_drawer.dart';
 import 'package:finance_loan/frontend/screens/home.dart';
 import 'package:finance_loan/frontend/screens/transactions.dart';
 import 'package:finance_loan/frontend/screens/inventory.dart';
-import 'package:finance_loan/frontend/screens/new_loan.dart';
 import 'package:finance_loan/frontend/screens/notifications.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class BottomNavigationBarExample extends StatefulWidget {
   const BottomNavigationBarExample({Key? key}) : super(key: key);
@@ -25,18 +26,45 @@ class _BottomNavigationBarExampleState
     });
   }
 
+  void handleProfileIconTap() {
+    // Custom transition for the profile page
+    Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) {
+          return const SettingsPage();
+        },
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          const begin = Offset(1.0, 0.0);
+          const end = Offset.zero;
+          const curve = Curves.ease;
+
+          var tween = Tween(begin: begin, end: end);
+          var curvedAnimation = CurvedAnimation(
+            parent: animation,
+            curve: curve,
+          );
+
+          return SlideTransition(
+            position: tween.animate(curvedAnimation),
+            child: child,
+          );
+        },
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser;
+    final String profileImageUrl = user?.photoURL ?? '';
+
     return Scaffold(
       appBar: AppBar(
-        // title: Text(destinations[screenIndex].label),
-        automaticallyImplyLeading: false,
-        backgroundColor: Color.fromARGB(255, 8, 8, 8),
         leading: Builder(
           builder: (context) => IconButton(
             icon: const Icon(
               Icons.menu,
-              color: Colors.white,
               size: 30,
             ),
             onPressed: () {
@@ -45,30 +73,24 @@ class _BottomNavigationBarExampleState
           ),
         ),
         actions: [
-          IconButton(
-            icon: const Icon(
-              Icons.account_circle,
-              color: Colors.white,
-              size: 35,
-              
+          GestureDetector(
+            onTap: () {
+              handleProfileIconTap();
+            },
+            child: CircleAvatar(
+              radius: 18,
+              backgroundImage: NetworkImage(profileImageUrl),
             ),
-            onPressed: () {},
-          )
+          ),
         ],
       ),
       body: _buildPage(),
       drawer: const NavigationDrawerExample(),
       bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: Colors.black, // Set the selected item label color
-        // unselectedItemColor: Colors.black.withOpacity(0.9),
-        unselectedItemColor: Colors.grey.withOpacity(0.5),
-        selectedLabelStyle: const TextStyle(fontSize: 9.0),
         currentIndex: screenIndex,
         onTap: handleScreenChanged,
-        elevation: 0,
         items: destinations.map((PageOption destination) {
           return BottomNavigationBarItem(
-            backgroundColor: const Color.fromRGBO(237, 225, 255, 1),
             label: destination.label,
             icon: destination.icon,
             activeIcon: destination.selectedIcon,
@@ -89,7 +111,7 @@ class _BottomNavigationBarExampleState
       case 2:
         return const Inventory();
       case 3:
-        return const NewLoanPage();
+      // return const NewLoanPage();
       case 4:
         return TransactionChart();
       default:
