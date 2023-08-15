@@ -138,3 +138,34 @@ class _EditLoanState extends State<EditLoan> {
     );
   }
 
+  // Define a method to save the user input
+  void _saveInput() {
+    if (_formKey.currentState!.validate()) {
+      // Get the values from the controllers
+      _fullName = _fullNameController.text;
+      _phoneNumber = _phoneNumberController.text;
+      _email = _emailController.text;
+      _loanAmount = double.parse(_loanAmountController.text);
+      _description = _descriptionController.text;
+
+      final Timestamp currentTimestamp = Timestamp.now();
+
+      // Create a Map with the updated data
+      Map<String, dynamic> updatedData = {
+        'fullName': _fullName,
+        'phoneNumber': _phoneNumber,
+        'email': _email,
+        'loanType': _loanType,
+        'loanAmount': _loanAmount,
+        'description': _description,
+        'loanDate': _loanDate,
+        'dueDate': _dueDate,
+        'imageUrl': _image?.path ??
+            '', // Replace with the appropriate URL if you're storing the image
+        'lastUpdated': currentTimestamp,
+      };
+
+      // Call the method to update the loan data in Firestore
+      updateLoanData(widget.documentId, updatedData);
+    }
+  }
