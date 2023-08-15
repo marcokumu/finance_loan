@@ -26,13 +26,12 @@ class NavigationDrawerExample extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Define a list of menu items with their icons, titles, and onTap callbacks
+    // A list to define a menu of items with their icons, titles, and onTap callbacks
     final List<Map<String, dynamic>> menuItems = [
       {
         'icon': Icons.insert_chart_rounded,
         'title': 'Statistical Analysis',
         'onTap': () {
-          // Handle navigation to Home screen here
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -46,7 +45,6 @@ class NavigationDrawerExample extends StatelessWidget {
         'icon': Icons.account_tree_outlined,
         'title': 'Transactions',
         'onTap': () {
-          // Handle navigation to Transactions screen here
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -55,7 +53,55 @@ class NavigationDrawerExample extends StatelessWidget {
           );
         },
       },
-      // Add more menu items here
+      // Add more menu items later
+      {
+        'icon': Icons.inventory,
+        'title': 'Inventory',
+        'onTap': () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const SettingsPage(),
+            ),
+          );
+        },
+      },
+      {
+        'icon': Icons.notifications,
+        'title': 'Notifications',
+        'onTap': () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const SettingsPage(),
+            ),
+          );
+        },
+      },
+      {
+        'icon': Icons.settings,
+        'title': 'Settings',
+        'onTap': () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const SettingsPage(),
+            ),
+          );
+        },
+      },
+      {
+        'icon': Icons.help_outline,
+        'title': 'Help',
+        'onTap': () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const SettingsPage(),
+            ),
+          );
+        },
+      },
       {
         'icon': Icons.logout,
         'title': 'Logout',
