@@ -109,3 +109,32 @@ class _EditLoanState extends State<EditLoan> {
       print('Error updating data: $e');
     }
   }
+
+  Future<void> _showSaveConfirmationDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Save Changes'),
+          content: const Text('Are you sure you want to save the changes?'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text('Save'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                _saveInput();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
