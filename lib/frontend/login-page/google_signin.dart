@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-// Define a custom GoogleSignInButton widget
 class GoogleSignInButton extends StatelessWidget {
   // A function to handle the Google sign-in process
   final VoidCallback onPressed;
@@ -8,14 +7,10 @@ class GoogleSignInButton extends StatelessWidget {
   // A constructor that takes the onPressed function as a parameter
   const GoogleSignInButton({super.key, required this.onPressed});
 
-
-
   @override
   Widget build(BuildContext context) {
-    // Return a TextButton with Google logo and text
     return ElevatedButton(
       style: TextButton.styleFrom(
-        // backgroundColor: Colors.blue,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),
         ),
@@ -34,7 +29,6 @@ class GoogleSignInButton extends StatelessWidget {
             const Text(
               'Continue with Google',
               style: TextStyle(
-                // color: Colors.black54,
                 fontSize: 16.0,
               ),
             ),
