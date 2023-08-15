@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:finance_loan/frontend/login-page/google_signin.dart';
 
-// Define a LoginPage widget that handles the login and signup UI and logic
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -142,7 +141,6 @@ class LoginPageState extends State<LoginPage> {
           behavior: SnackBarBehavior.floating,
           content: Text(
               'A verification email has been sent to $email. Please verify your email address and sign in.'),
-          // backgroundColor: Colors.green,
         ));
 
         // Clear the text controllers
@@ -179,7 +177,6 @@ class LoginPageState extends State<LoginPage> {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         behavior: SnackBarBehavior.floating,
         content: Text(e.toString()),
-        // backgroundColor: Colors.red,
       ));
     } finally {
       // Set the loading state to false
@@ -261,6 +258,7 @@ class LoginPageState extends State<LoginPage> {
               TextField(
                 controller: _emailController,
                 decoration: const InputDecoration(
+                  labelText: 'Email',
                   hintText: 'Email',
                   border: OutlineInputBorder(),
                 ),
@@ -270,6 +268,7 @@ class LoginPageState extends State<LoginPage> {
               TextField(
                 controller: _passwordController,
                 decoration: const InputDecoration(
+                  labelText: 'Password',
                   hintText: 'Password',
                   border: OutlineInputBorder(),
                 ),
@@ -282,8 +281,8 @@ class LoginPageState extends State<LoginPage> {
                   // A button to toggle between login and signup modes
                   ElevatedButton(
                     style: TextButton.styleFrom(
-                        // backgroundColor: Colors.blue,
-                        ),
+                      backgroundColor: Colors.blue,
+                    ),
                     onPressed: () {
                       setState(() {
                         _isSigningUp = !_isSigningUp;
@@ -301,8 +300,8 @@ class LoginPageState extends State<LoginPage> {
                   // A button to trigger the email/password login or signup process
                   ElevatedButton(
                     style: TextButton.styleFrom(
-                        // backgroundColor: Colors.green,
-                        ),
+                      backgroundColor: Colors.green,
+                    ),
                     onPressed: _isSigningUp
                         ? _signUpWithEmailAndPassword
                         : _signInWithEmailAndPassword,
