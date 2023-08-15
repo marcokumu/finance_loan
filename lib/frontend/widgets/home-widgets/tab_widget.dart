@@ -22,7 +22,7 @@ class _TabWidgetState extends State<TabWidget>
   Widget build(BuildContext context) {
     super.build(context);
     return Container(
-      // padding: const EdgeInsets.symmetric(horizontal: 50),
+      
       decoration: const BoxDecoration(
         border: Border(
           bottom: BorderSide(
