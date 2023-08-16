@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class BarGraph extends StatelessWidget {
@@ -14,8 +15,23 @@ class BarGraph extends StatelessWidget {
         Container(
           height: 300,
           padding: const EdgeInsets.all(16.0),
+          // color: Colors.white,
           child: SfCartesianChart(
-            primaryXAxis: CategoryAxis(),
+            title: ChartTitle(text: 'Monthly Transactions'), // Add a title
+            primaryXAxis: CategoryAxis(
+              majorGridLines: const MajorGridLines(width: 0),
+              labelStyle: const TextStyle(
+                fontSize: 12,
+              ), // Customize label style
+            ),
+            primaryYAxis: NumericAxis(
+              numberFormat: NumberFormat.currency(
+                  locale: 'en_US',
+                  symbol: 'KES'), // Format Y-axis labels as currency
+              labelStyle: const TextStyle(
+                fontSize: 12,
+              ), // Customize label style
+            ),
             legend: Legend(
               isVisible: true,
               orientation: LegendItemOrientation.horizontal,
@@ -30,6 +46,7 @@ class BarGraph extends StatelessWidget {
                 yValueMapper: (TransactionData transaction, _) =>
                     transaction.borrow,
                 name: 'Borrow',
+                color: Colors.blue,
               ),
               ColumnSeries<TransactionData, String>(
                 dataSource: data,
@@ -38,6 +55,7 @@ class BarGraph extends StatelessWidget {
                 yValueMapper: (TransactionData transaction, _) =>
                     transaction.lend,
                 name: 'Lend',
+                color: Colors.green,
                 trendlines: <Trendline>[
                   Trendline(
                     type: TrendlineType.linear,
@@ -51,42 +69,40 @@ class BarGraph extends StatelessWidget {
             enableMultiSelection: true,
             selectionType: SelectionType.point,
             selectionGesture: ActivationMode.singleTap,
+            tooltipBehavior: TooltipBehavior(
+                enable: true,
+                header: '',
+                format: 'point.y KES'), // Add tooltip behavior
+            trackballBehavior: TrackballBehavior(
+                enable: true,
+                activationMode: ActivationMode.singleTap,
+                lineType: TrackballLineType.vertical), // Add trackball behavior
           ),
         ),
-        Flexible(
-          fit: FlexFit.loose,
-          child: ListView.builder(
-            shrinkWrap: true,
-            itemCount: data.length,
-            itemBuilder: (context, index) {
-              final transaction = data[index];
-              return Flexible(
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: Row(
-                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          // First column: Month
-                          Text(transaction.month),
-                          // Second column: Borrowed and Lent
-                          Padding(
-                            padding: const EdgeInsets.only(left: 166.0),
-                            child: Text(
-                              'Borrowed: KES ${transaction.borrow}\nLent: KES ${transaction.lend}',
-                              textAlign: TextAlign.end,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const Divider(),
-                  ],
-                ),
-              );
-            },
-          ),
+        const SizedBox(height: 16),
+        ListView.builder(
+          shrinkWrap: true,
+          itemCount: data.length,
+          itemBuilder: (context, index) {
+            final transaction = data[index];
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Text(transaction.month),
+                      const SizedBox(width: 16.0),
+                      Text('Borrowed: KES ${transaction.borrow}'),
+                      const SizedBox(width: 16.0),
+                      Text('Lent: KES ${transaction.lend}'),
+                    ],
+                  ),
+                  const Divider(),
+                ],
+              ),
+            );
+          },
         ),
       ],
     );
