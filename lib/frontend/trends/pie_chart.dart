@@ -6,7 +6,8 @@ class RadialBarChart extends StatelessWidget {
   final double totalLend;
 
   const RadialBarChart(
-      {super.key, required this.totalBorrow, required this.totalLend});
+      {Key? key, required this.totalBorrow, required this.totalLend})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,6 @@ class RadialBarChart extends StatelessWidget {
       child: SfCircularChart(
         legend: Legend(
           isVisible: true,
-          // overflowMode: LegendItemOverflowMode.wrap,
           position: LegendPosition.bottom,
         ),
         series: <RadialBarSeries<Data, String>>[
@@ -27,20 +27,20 @@ class RadialBarChart extends StatelessWidget {
             ],
             xValueMapper: (Data data, _) => data.category,
             yValueMapper: (Data data, _) => data.value,
-            dataLabelMapper: (Data data, _) =>
-                data.category, // Use category as data label text
+            dataLabelMapper: (Data data, _) => '${data.value}',
             dataLabelSettings: const DataLabelSettings(
-              isVisible: false,
-              textStyle: TextStyle(
-                fontSize: 16,
-              ),
+              isVisible: true,
+              textStyle: TextStyle(fontSize: 14, color: Colors.black),
             ),
             cornerStyle: CornerStyle.bothCurve,
+            enableTooltip: true,
           ),
         ],
-        enableMultiSelection: true, // Enable selection
-        selectionGesture: ActivationMode.singleTap, // Set the selection gesture
-        
+        enableMultiSelection: true,
+        selectionGesture: ActivationMode.singleTap,
+        onDataLabelTapped: (DataLabelTapDetails args) {
+          // Handle data label tap if needed
+        },
       ),
     );
   }
