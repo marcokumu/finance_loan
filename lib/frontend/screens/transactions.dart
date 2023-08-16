@@ -52,7 +52,7 @@ class _TransactionsState extends State<Transactions> {
     for (var loanDoc in loansSnapshot.docs) {
       final loanData = loanDoc.data();
       final loanDate = loanData['createdAt']
-          as Timestamp; // Use createdAt instead of loanDate
+          as Timestamp; 
       final lend = loanData['loanType'] == 'Lend'
           ? loanData['loanAmount'] as double
           : 0.0;
