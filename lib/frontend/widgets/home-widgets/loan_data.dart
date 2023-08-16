@@ -128,3 +128,36 @@ class _LoanCardsListState extends State<LoanCardsList>
                 // Handle the case where some required data is null
                 return Container(); // You can return an empty container or an error widget here
               }
+              // Calculate the warning icon based on the due date
+
+              // Map the loan data to the custom LoanCard widget
+              return AnimationConfiguration.staggeredList(
+                position: index,
+                duration: const Duration(milliseconds: 500),
+                child: SlideAnimation(
+                  verticalOffset: 50.0,
+                  child: FadeInAnimation(
+                    child: LoanCard(
+                      fullName: fullName,
+                      loanType: loanType,
+                      loanAmount: loanAmount,
+                      email: email,
+                      description: description,
+                      phoneNumber: phoneNumber,
+                      date: loanDate.toDate(),
+                      loanDate: loanDate.toDate(),
+                      dueDate: dueDate.toDate(),
+                      profilePic: '',
+                      userId: widget.userId,
+                      documentId: documentId,
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
+        );
+      },
+    );
+  }
+}
