@@ -33,3 +33,36 @@ class _LoanCardsListState extends State<LoanCardsList>
     _subscribeToStream();
   }
 
+  @override
+  void dispose() {
+    _snapshotSubject.close();
+    _subscription.cancel();
+    super.dispose();
+  }
+
+  void _subscribeToStream() {
+    final stream = FirebaseFirestore.instance
+        .collection('users')
+        .doc(widget.userId)
+        .collection('loans')
+        .snapshots();
+
+    _subscription = stream.listen((snapshot) {
+      _snapshotSubject.add(snapshot);
+      if (_isLoading) {
+        // Delay hiding the loading indicator to give a smooth experience
+        Timer(const Duration(milliseconds: 500), () {
+          if (mounted) {
+            // Check if the widget is still mounted before updating the state
+            setState(() {
+              _isLoading = false;
+            });
+          }
+        });
+      }
+    }, onError: (error) {
+      // Will handle stream error here
+    });
+  }
+
+  @override
