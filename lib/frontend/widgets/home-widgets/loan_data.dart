@@ -97,3 +97,34 @@ class _LoanCardsListState extends State<LoanCardsList>
             .where((doc) => doc['loanType'] == widget.loanType)
             .toList();
 
+        return AnimationLimiter(
+          child: ListView.builder(
+            itemCount: filteredLoanDocs.length,
+            itemBuilder: (context, index) {
+              final loanDocument = filteredLoanDocs[index];
+              final loanData =
+                  filteredLoanDocs[index].data() as Map<String, dynamic>;
+              final documentId = loanDocument.id;
+
+              // Perform explicit null checks and handle null values
+              final fullName = loanData['fullName'] as String?;
+              final loanType = loanData['loanType'] as String?;
+              final loanAmount = loanData['loanAmount'] as double?;
+              final description = loanData['description'] as String?;
+              final email = loanData['email'] as String?;
+              final phoneNumber = loanData['phoneNumber'] as String?;
+              final loanDate = loanData['loanDate'] as Timestamp?;
+              final dueDate = loanData['dueDate'] as Timestamp?;
+
+              if (fullName == null ||
+                  loanType == null ||
+                  loanAmount == null ||
+                  description == null ||
+                  loanDate == null ||
+                  dueDate == null ||
+                  phoneNumber == null ||
+                  email == null ||
+                  loanData['imageUrl'] == null) {
+                // Handle the case where some required data is null
+                return Container(); // You can return an empty container or an error widget here
+              }
