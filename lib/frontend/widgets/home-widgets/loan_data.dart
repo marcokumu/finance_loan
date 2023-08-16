@@ -17,3 +17,19 @@ class LoanCardsList extends StatefulWidget {
   _LoanCardsListState createState() => _LoanCardsListState();
 }
 
+class _LoanCardsListState extends State<LoanCardsList>
+    with AutomaticKeepAliveClientMixin {
+  late BehaviorSubject<QuerySnapshot> _snapshotSubject;
+  late StreamSubscription<QuerySnapshot> _subscription;
+  bool _isLoading = true; // Flag to track initial loading
+
+  @override
+  bool get wantKeepAlive => true;
+
+  @override
+  void initState() {
+    super.initState();
+    _snapshotSubject = BehaviorSubject<QuerySnapshot>();
+    _subscribeToStream();
+  }
+
