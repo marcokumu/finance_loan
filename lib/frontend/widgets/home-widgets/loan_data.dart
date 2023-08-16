@@ -66,3 +66,34 @@ class _LoanCardsListState extends State<LoanCardsList>
   }
 
   @override
+  Widget build(BuildContext context) {
+    super.build(context); // Must call super.build(context) in build method
+
+    if (_isLoading) {
+      // Show the circular indicator until the initial data is loaded
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+
+    return StreamBuilder<QuerySnapshot>(
+      stream:
+          _snapshotSubject.stream, // Use the cached stream from BehaviorSubject
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        }
+
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          // Return an empty container if still waiting for data
+          return Container();
+        }
+
+        // Retrieve the loan documents from the snapshot
+        final List<DocumentSnapshot> loanDocs = snapshot.data!.docs;
+
+        // Separate loanDocs based on the loanType provided to the widget
+        final filteredLoanDocs = loanDocs
+            .where((doc) => doc['loanType'] == widget.loanType)
+            .toList();
+
