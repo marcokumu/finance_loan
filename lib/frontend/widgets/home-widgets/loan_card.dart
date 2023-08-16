@@ -1,25 +1,40 @@
 import 'package:finance_loan/frontend/widgets/bottom-sheet-widgets/bottom_sheet_container.dart';
+import 'dart:math';
+import 'package:finance_loan/frontend/widgets/details/loan_details.dart';
+import 'package:finance_loan/frontend/widgets/details/loan_details_model.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class LoanCard extends StatefulWidget {
+  final String userId;
   final String fullName;
   final String description;
+  final String phoneNumber;
+  final String email;
   final String profilePic;
   final String loanType;
   final double amount;
+  final DateTime loanDate;
+  final double loanAmount;
   final DateTime date;
   final DateTime dueDate;
+  final String documentId;
 
   const LoanCard({
     Key? key,
+    required this.documentId,
     required this.fullName,
     required this.description,
+    required this.email,
+    required this.phoneNumber,
     required this.profilePic,
+    required this.loanDate,
     required this.loanType,
     required this.amount,
+    required this.loanAmount,
     required this.date,
     required this.dueDate,
+    required this.userId,
   }) : super(key: key);
 
   @override
@@ -34,10 +49,13 @@ class _LoanCardState extends State<LoanCard> {
   }
 
   String getFormattedAmount(double amount) {
+  String getFormattedAmount(double loanAmount) {
     final formatter = NumberFormat('#,##0.00', 'en_US');
     return formatter.format(amount);
+    return formatter.format(loanAmount);
   }
   // ... (other methods and build method)
+  
 
   void _showLoanDetailsBottomSheet(BuildContext context) {
     showModalBottomSheet(
@@ -53,6 +71,39 @@ class _LoanCardState extends State<LoanCard> {
           paymentDueDate: widget.dueDate,
         );
       },
+  void _showLoanDetailsPage(BuildContext context) {
+    // Created a LoanDetails object to pass to the LoanDetailsPage
+    final loanDetails = LoanDetails(
+      fullName: widget.fullName,
+      imageUrl: widget.profilePic,
+      phoneNumber: widget.phoneNumber,
+      email: widget.email,
+      loanType: widget.loanType,
+      loanAmount: widget.loanAmount,
+      createdAt: widget.date,
+      dueDate: widget.dueDate,
+      loanDate: widget.date,
+      description: widget.description,
+      userId: widget.userId,
+      documentId: widget.documentId,
+    );
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => LoanDetailsPage(loanDetails: loanDetails),
+      ),
+    );
+  }
+
+  // Function to generate a random color
+  Color getRandomColor() {
+    final random = Random();
+    return Color.fromARGB(
+      255,
+      random.nextInt(256),
+      random.nextInt(256),
+      random.nextInt(256),
     );
   }
 
