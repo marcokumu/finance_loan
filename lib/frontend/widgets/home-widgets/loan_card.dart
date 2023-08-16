@@ -148,6 +148,17 @@ class _LoanCardState extends State<LoanCard> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceAround,
+    return GestureDetector(
+      onTap: () => _showLoanDetailsPage(context),
+      child: Hero(
+        tag: widget.documentId,
+        child: Card(
+          margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+          elevation: 0.5,
+          child: Container(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   widget.fullName,
@@ -159,6 +170,17 @@ class _LoanCardState extends State<LoanCard> {
                     wordSpacing: 1,
                     fontWeight: FontWeight.bold,
                   ),
+                // Column 1: Profile Picture
+                Column(
+                  children: [
+                    Container(
+                      child: Icon(
+                        Icons.person,
+                        size: 20,
+                        color: getRandomColor(),
+                      ),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 3),
                 Text(
@@ -171,9 +193,45 @@ class _LoanCardState extends State<LoanCard> {
                     fontFamily: 'Roboto-Regular',
                     fontSize: 15,
                     wordSpacing: 1,
+                const SizedBox(width: 10),
+                // Column 2: Details (Name, Description, Amount)
+                Expanded(
+                  // flex: 4,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Text(
+                        widget.fullName,
+                        style: const TextStyle(
+                          // letterSpacing: 1,
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 5),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          const Icon(
+                            Icons.calendar_today_rounded,
+                            color: Colors.red,
+                            size: 13,
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            'Due: ${getFormattedDate(widget.dueDate)}',
+                            style: const TextStyle(
+                                fontSize: 12, fontWeight: FontWeight.w100),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
                 const SizedBox(height: 5),
+                const SizedBox(width: 10),
+                // Column 3: Due Date and Details Button
                 Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -185,6 +243,20 @@ class _LoanCardState extends State<LoanCard> {
                           fontSize: 19,
                           fontWeight: FontWeight.w700,
                           fontFamily: 'Roboto',
+                    Align(
+                      alignment: Alignment.center,
+                      heightFactor: 2.2,
+                      child: Container(
+                        padding: const EdgeInsets.fromLTRB(3, 3, 12, 3),
+                        child: Text(
+                          textAlign: TextAlign.center,
+                          'KES ${getFormattedAmount(widget.loanAmount)}',
+                          style: TextStyle(
+                            fontSize: 13,
+                            color: widget.loanType == 'Lend'
+                                ? Colors.red
+                                : const Color.fromRGBO(53, 195, 179, 1),
+                          ),
                         ),
                       ),
                     ),
@@ -229,6 +301,7 @@ class _LoanCardState extends State<LoanCard> {
             ],
           ),
         ],
+        ),
       ),
     );
   }
