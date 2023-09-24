@@ -28,13 +28,13 @@ The Loan Tracker app is a simple mobile application that allows users to keep tr
 
 - **Error Handling**: The app includes input validation and error handling to ensure that users enter valid and necessary information.
 
-## Screenshots
-
-![Screenshot 1](/screenshots/screenshot_1.png)
-![Screenshot 2](/screenshots/screenshot_2.png)
 
 ## Installation
 
 1. Make sure you have Flutter installed on your system. If not, follow the instructions [here](https://flutter.dev/docs/get-started/install) to set up Flutter.
 
 2. Clone this repository to your local machine using:
+
+
+## APK
+To try out the downloadable version, please email me: marcokumu10@gmail.com
