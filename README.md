@@ -37,4 +37,4 @@ The Loan Tracker app is a simple mobile application that allows users to keep tr
 
 
 ## APK
-To try out the downloadable version, please email me: marcokumu10@gmail.com
+Since the downloadable version is not yet available in the App Store or Play Store, email me at marcokumu10@gmail.com to receive an apk bundle.
