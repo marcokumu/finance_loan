@@ -4,7 +4,7 @@ The Loan Tracker app is a simple mobile application that allows users to keep tr
 
 <div style="display: flex; flex-direction: row;">
   <img src="assets/readme/Screenshot_2023-09-24-22-31-52-23_120ec6ad9c58cbe739baf085605c54b0.jpg" alt="App Screenshot 1" width="300" style="margin-right: 20px;" />
-  <img src="assets/readme/Screenshot_2023-09-24-22-31-52-23_120ec6ad9c58cbe739baf085605c54b0.jpg" alt="App Screenshot 2" width="300" />
+  <img src="assets/readme/Screenshot_2023-09-24-22-32-07-40_120ec6ad9c58cbe739baf085605c54b0.jpg" alt="App Screenshot 2" width="300" />
 </div>
 
 
