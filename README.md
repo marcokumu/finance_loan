@@ -3,8 +3,8 @@
 The Loan Tracker app is a simple mobile application that allows users to keep track of their loans and debts. Users can easily record information about their borrowers or creditors, such as the loan amount, due date, and a brief description. The app provides a convenient way to manage and organize loan-related data.
 
 <div style="display: flex; flex-direction: row;">
-  <img src="assets/readme/Screenshot_2023-09-24-22-31-52-23_120ec6ad9c58cbe739baf085605c54b0.jpg" alt="App Screenshot 1" width="300" style="margin-right: 20px;" />
-  <img src="assets/readme/Screenshot_2023-09-24-22-32-07-40_120ec6ad9c58cbe739baf085605c54b0.jpg" alt="App Screenshot 2" width="300" />
+  <img src="assets/readme/Screenshot_2023-09-24-22-31-52-23_120ec6ad9c58cbe739baf085605c54b0.jpg" alt="App Screenshot 1" width="200" style="margin-right: 30px;" />
+  <img src="assets/readme/Screenshot_2023-09-24-22-32-07-40_120ec6ad9c58cbe739baf085605c54b0.jpg" alt="App Screenshot 2" width="200" />
 </div>
 
 
