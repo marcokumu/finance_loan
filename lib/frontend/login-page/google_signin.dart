@@ -9,29 +9,18 @@ class GoogleSignInButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: TextButton.styleFrom(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8.0),
-        ),
-      ),
-      onPressed: onPressed,
+    return GestureDetector(
+      onTap: onPressed,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(4.0),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             Image.asset(
               'assets/images/google_logo.png',
-              height: 44.0,
+              height: 38.0,
             ),
-            const SizedBox(width: 8.0),
-            const Text(
-              'Continue with Google',
-              style: TextStyle(
-                fontSize: 16.0,
-              ),
-            ),
+            const SizedBox(width: 4.0),
           ],
         ),
       ),
