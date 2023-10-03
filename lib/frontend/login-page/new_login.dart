@@ -156,3 +156,28 @@ class LoginScreenState extends State<LoginScreen> {
     }
   }
 
+  @override
+  Widget build(BuildContext context) {
+    return FlutterLogin(
+      footer: 'LifeTrackr',
+      logo: const AssetImage('assets/images/track.png'),
+      onLogin: _authUser,
+      messages: LoginMessages(),
+      onSignup: _signupUser,
+      onRecoverPassword: _recoverPassword,
+      // navigateBackAfterRecovery: true,
+      loginProviders: <LoginProvider>[
+        LoginProvider(
+          icon: FontAwesomeIcons.google,
+          label: 'Google',
+          animated: true,
+          callback: _signInWithGoogle,
+        ),
+      ],
+      onSubmitAnimationCompleted: () {
+        // Navigate to your main app page or dashboard here
+        Navigator.pushReplacementNamed(context, '/homepage');
+      },
+    );
+  }
+}
