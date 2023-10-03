@@ -1,38 +1,68 @@
-import 'package:finance_loan/frontend/login-page/signup_login.dart';
 import 'package:finance_loan/frontend/screens/new_home.dart';
 import 'package:finance_loan/frontend/screens/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:ionicons/ionicons.dart';
 
 class NavigationDrawerExample extends StatelessWidget {
   const NavigationDrawerExample({Key? key}) : super(key: key);
 
   // Function to handle user logout
   Future<void> _signOut(BuildContext context) async {
-    print("Signing out...");
+    final scaffoldContext = ScaffoldMessenger.of(context); // Capture the context
+    final navigatorContext = Navigator.of(context); // Capture the Navigator's context
     try {
       await FirebaseAuth.instance.signOut();
       // Navigate back to the login page
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const LoginPage()));
+      navigatorContext.pushReplacementNamed( '/login');
     } catch (e) {
-      print("Error signing out: $e");
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+
+      scaffoldContext.showSnackBar(const SnackBar(
         content: Text('An error occurred while signing out.'),
         // backgroundColor: Colors.red,
+        behavior: SnackBarBehavior.floating,
       ));
     }
   }
 
+  void showLogoutConfirmationDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Logout'),
+          content: const Text('Are you sure you want to logout?'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+                _signOut(context);
+              },
+              style: TextButton.styleFrom(
+                textStyle: const TextStyle(
+                  // color: Colors.red,
+                ),
+              ),
+              child: const Text('Logout'),
+            ),
+          ],
+        );
+      },
+    );
+  }
   @override
   Widget build(BuildContext context) {
     // A list to define a menu of items with their icons, titles, and onTap callbacks
     final List<Map<String, dynamic>> menuItems = [
       {
-        'icon': Icons.insert_chart_rounded,
+        'icon': Ionicons.stats_chart_outline,
         'title': 'Statistical Analysis',
         'onTap': () {
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(
               builder: (context) => const SettingsPage(),
@@ -45,7 +75,7 @@ class NavigationDrawerExample extends StatelessWidget {
         'icon': Icons.account_tree_outlined,
         'title': 'Transactions',
         'onTap': () {
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(
               builder: (context) => const NewHomePage(),
@@ -58,7 +88,7 @@ class NavigationDrawerExample extends StatelessWidget {
         'icon': Icons.inventory,
         'title': 'Inventory',
         'onTap': () {
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(
               builder: (context) => const SettingsPage(),
@@ -67,10 +97,10 @@ class NavigationDrawerExample extends StatelessWidget {
         },
       },
       {
-        'icon': Icons.notifications,
+        'icon': Ionicons.notifications_outline,
         'title': 'Notifications',
         'onTap': () {
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(
               builder: (context) => const SettingsPage(),
@@ -79,10 +109,10 @@ class NavigationDrawerExample extends StatelessWidget {
         },
       },
       {
-        'icon': Icons.settings,
+        'icon': Ionicons.options_outline,
         'title': 'Settings',
         'onTap': () {
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(
               builder: (context) => const SettingsPage(),
@@ -94,7 +124,7 @@ class NavigationDrawerExample extends StatelessWidget {
         'icon': Icons.help_outline,
         'title': 'Help',
         'onTap': () {
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(
               builder: (context) => const SettingsPage(),
@@ -103,9 +133,9 @@ class NavigationDrawerExample extends StatelessWidget {
         },
       },
       {
-        'icon': Icons.logout,
+        'icon': Ionicons.log_out_outline,
         'title': 'Logout',
-        'onTap': () => _signOut(context), // Call _signOut when Logout is tapped
+        'onTap': () => showLogoutConfirmationDialog(context), // Call _signOut when Logout is tapped
       },
     ];
 
