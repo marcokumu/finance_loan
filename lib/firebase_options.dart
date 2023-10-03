@@ -67,7 +67,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '816128504538',
     projectId: 'finance-tracker-8f357',
     storageBucket: 'finance-tracker-8f357.appspot.com',
-    iosClientId: '816128504538-0v59n7f748cifoureiat6t5v8nc8b746.apps.googleusercontent.com',
+    iosClientId:
+        '816128504538-0v59n7f748cifoureiat6t5v8nc8b746.apps.googleusercontent.com',
     iosBundleId: 'com.example.financeLoan',
   );
 
@@ -77,7 +78,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '816128504538',
     projectId: 'finance-tracker-8f357',
     storageBucket: 'finance-tracker-8f357.appspot.com',
-    iosClientId: '816128504538-v1p6smuftj494nt1fbsrlnfiu3g360uj.apps.googleusercontent.com',
+    iosClientId:
+        '816128504538-v1p6smuftj494nt1fbsrlnfiu3g360uj.apps.googleusercontent.com',
     iosBundleId: 'com.example.financeLoan.RunnerTests',
   );
 }
